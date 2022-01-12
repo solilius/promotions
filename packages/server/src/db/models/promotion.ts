@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { Promotion } from '@promotions/common';
+import { Promotion as PromotionIterface } from '@promotions/common';
 
-const schema = new Schema<Promotion>({
+const schema = new Schema<PromotionIterface>({
   name: { type: String, required: true },
   type: { type: String, required: true },
   startDate: { type: Date, required: true },
@@ -9,4 +9,4 @@ const schema = new Schema<Promotion>({
   userGroup: { type: String, required: true },
 });
 
-export const Promotions = model('Promotion', schema);
+export const Promotion = model('Promotion', schema);

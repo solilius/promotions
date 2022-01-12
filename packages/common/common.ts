@@ -13,6 +13,7 @@ export enum UserGroups {
 }
 
 export interface Promotion {
+  _id?: string;
   name: string;
   type: PromotionTypes;
   startDate: Date;

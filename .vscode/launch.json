@@ -1,7 +1,7 @@
 {
   "configurations": [
     {
-      "name": "Launch via NPM",
+      "name": "Launch Lerna",
       "request": "launch",
       "runtimeArgs": [
         "start"
@@ -12,7 +12,5 @@
       ],
       "type": "pwa-node"
     }
-  
   ]
-
 }
