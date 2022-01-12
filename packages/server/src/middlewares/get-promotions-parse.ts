@@ -6,11 +6,10 @@ export const getPromotionsParse = (
   res: Response,
   next: NextFunction
 ) => {
-  const { bulkSize, position, isNext } = req.query;
+  const { bulkSize, offset } = req.query;
 
   req.query.bulkSize = Number(bulkSize);
-  req.query.position = Number(position);
-  req.query.isNext = String(isNext) === 'true';
+  req.query.offset = Number(offset);
 
   next();
 }

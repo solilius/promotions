@@ -7,7 +7,7 @@ import { startServer } from './utils/start-server';
 
 const app = express();
 
-app.use(cors({ origin: envs.allowedDomains }));
+app.use(cors());
 
 app.use("/promotions", promotionsRouter);
 

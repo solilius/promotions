@@ -14,5 +14,5 @@ export const router = express.Router();
 router.route("/").get(getPromotionsParse, getPromotionsValidate, getPromotions);
 router.route("/:id").put(valideteId, promotionValidate, updatePromotion);
 router.route("/:id").delete(valideteId, deletePromotion);
-router.route("/duplicate").post(valideteId, duplicatePromotion);
+router.route("/duplicate/:id").post(valideteId, duplicatePromotion);
 

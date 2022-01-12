@@ -1,15 +1,18 @@
 
 export enum PromotionTypes {
-  Basic = 'Basic',
-  Common = 'Common',
-  Epic = 'Epic',
+  Basic = 'basic',
+  Common = 'common',
+  Epic = 'epic',
 }
 
 export enum UserGroups {
-  Beginners = 'Beginners',
-  Regulars = 'Regulars',
-  Veterans = 'Veterans',
-  Masters = 'Masters',
+  Beginners = 'beginners',
+  Veterans = 'veterans',
+  Greek = 'greek',
+  Spanish = 'spanish',
+  Facebook = 'from-facebook',
+  Friends = 'from-friends',
+  Testers = 'testers',
 }
 
 export interface Promotion {
