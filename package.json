@@ -1,0 +1,14 @@
+{
+  "name": "@promotions/root",
+  "private": true,
+  "scripts": {
+    "start": "lerna run start"
+  },
+
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

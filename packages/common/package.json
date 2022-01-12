@@ -1,0 +1,16 @@
+{
+  "name": "@promotions/common",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "'Sol Elan",
+  "homepage": "",
+  "license": "ISC",
+  "main": "common.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ]
+}
