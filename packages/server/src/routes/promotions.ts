@@ -7,11 +7,12 @@ import { updatePromotion } from '../handlers/update-promotion';
 import { getPromotionsParse } from '../middlewares/get-promotions-parse';
 import { getPromotionsValidate } from '../middlewares/get-promotions-validate';
 import { promotionValidate } from '../middlewares/promotion-validate';
+import { valideteId } from '../middlewares/valideteId';
 
 export const router = express.Router();
 
 router.route("/").get(getPromotionsParse, getPromotionsValidate, getPromotions);
-router.route("/:id").put(promotionValidate, updatePromotion);
-router.route("/:id").delete(deletePromotion);
-router.route("/duplicate").post(promotionValidate, duplicatePromotion);
+router.route("/:id").put(valideteId, promotionValidate, updatePromotion);
+router.route("/:id").delete(valideteId, deletePromotion);
+router.route("/duplicate").post(valideteId, duplicatePromotion);
 

@@ -5,7 +5,7 @@ import { StatusCodes } from "../utils/types";
 
 export const duplicatePromotion = async (req: Request, res: Response) => {
   try {
-    const promotion = req.body?.promotion;
+    const promotion = await Promotion.find({_id: req.params.id});
     await Promotion.create(promotion);
 
     res.json({ status: " success" });

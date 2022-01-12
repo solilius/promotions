@@ -5,15 +5,7 @@ import { StatusCodes } from "../utils/types";
 
 export const deletePromotion = async (req: Request, res: Response) => {
   try {
-
-    const id = req.params?.id;
-
-    if (!id) {
-      
-      return res.status(StatusCodes.BadRequest).send('No id provided');
-    }
-
-    await Promotion.deleteOne({ _id: id });
+    await Promotion.deleteOne({ _id: req.params.id });
 
     res.json({ status: " success" });
   } catch (error) {
