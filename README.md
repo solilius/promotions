@@ -35,11 +35,7 @@ and run the command: ```$ npm install -g @angular/cli ```.
 * Run the command: ``` $ yarn bootstrap``` to install all the dependencies.
 * in the root repository create **.env** file. in fill it out like this:
 ```
-PAGE_ID=104603479746871
-ACCESS_TOKEN=XrHqlfuG1ZB8zsgE7kBvovwdIeSb0TZB9...
-DB_URI=mongodb+srv://myuser:mypassword@cluster...
 PORT=3000
-ADMIN_PASSWORD=Aa123456
 MONGO_URI= ask me personally for that
 ALLOWED_DOMAINS = ["http://localhost:4200"] (I think im not using it)
 ```
