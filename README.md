@@ -21,19 +21,13 @@ scroll to the infinity and manage you real promotions
 
 <br/>
 
-#### For Local Deployment
-
-Get the latest version of NodeJS from [here](https://nodejs.org/en/), LTS version is recommended. <br/>
-and run the command: ```$ npm install -g @angular/cli ```.
-
-
-<br/>
 
 ## Installation
 * Clone the repository
-*  navigate to folder and Install lerna   ``` $ yarn add lerna```
+* Navigate to folder and Install lerna   ``` $ yarn add lerna```
 * Run the command: ``` $ yarn bootstrap``` to install all the dependencies.
 * in the root repository create **.env** file. in fill it out like this:
+
 ```
 PORT=3000
 MONGO_URI= ask me personally for that
