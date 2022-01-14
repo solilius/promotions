@@ -1,16 +1,11 @@
 import { useContext, useRef } from "react";
-import { TableHead, CircularProgress } from "@mui/material";
+import { TableHead, TableBody } from "@mui/material";
 
 import { useRefCallback } from "../hooks/usePositionRef";
 import { PromotionCell } from "./PromotionCell";
-import {
-  StyledTable,
-  TableContainer,
-  Row,
-  ScrollableBody,
-  HeaderCell,
-} from "./styles/Styled";
+import { StyledTable, TableContainer, Row, HeaderCell } from "./styles/Styled";
 import { PromotionsContext } from "../contexts/promotiosContext";
+import { Loader } from "./Loader";
 
 export const PromotionsTable = () => {
   const { isLoading, promotions, offset, setOffset } =
@@ -47,15 +42,11 @@ export const PromotionsTable = () => {
             <HeaderCell>Start Date</HeaderCell>
             <HeaderCell>End Date</HeaderCell>
             <HeaderCell>User Group</HeaderCell>
-            <HeaderCell>
-              <CircularProgress
-                color="inherit"
-                variant={isLoading ? "indeterminate" : "determinate"}
-              />
-            </HeaderCell>
+            <HeaderCell></HeaderCell>
           </Row>
         </TableHead>
-        <ScrollableBody>
+        <TableBody>
+          {isLoading && <Loader isLoading={isLoading} />}
           {promotions.map((promotion, index) => (
             <PromotionCell
               promotion={promotion}
@@ -63,7 +54,8 @@ export const PromotionsTable = () => {
               lastItemCallback={isLast(index) ? lastPromotion : undefined}
             />
           ))}
-        </ScrollableBody>
+          {isLoading && <Loader isLoading={isLoading} />}
+        </TableBody>
       </StyledTable>
     </TableContainer>
   );

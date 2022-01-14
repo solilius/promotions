@@ -4,7 +4,7 @@ import { Table, TableCell, TableRow, TableBody } from "@mui/material";
 export const TableContainer = styled.div`
   border: 2px solid #008385;
   border-radius: 8px;
-  max-height: 90vh;
+  max-height: 85vh;
   overflow-y: scroll;
 `;
 
@@ -37,5 +37,6 @@ export const LoaderRow = styled(TableRow)`
   padding: 30px;
 `;
 
-export const ScrollableBody = styled(TableBody)`
+export const LoaderContainer = styled(TableCell)`
+  background: #386491 !important;
 `;
