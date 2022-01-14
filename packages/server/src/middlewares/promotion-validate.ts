@@ -8,7 +8,7 @@ export const promotionValidate = (
   res: Response,
   next: NextFunction
 ) => {
-  const validate = schema.validate(req.query);
+  const validate = schema.validate(req.body);
   if (validate.error) {
     const errorMsg = validate.error.details?.shift()?.message || 'Bad Promotion';
 

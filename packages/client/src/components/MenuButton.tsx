@@ -9,13 +9,16 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { StyledMenu } from "./styles/StyledMenu";
 import { PromotionsContext } from "../contexts/promotiosContext";
+import { PromotionEditModal } from "./styles/PromotionEditModal";
+import { Promotion } from "@promotions/common";
 
 interface Props {
-  promotionId: string;
+  promotion: Promotion;
 }
 
-export const MenuButton = ({ promotionId }: Props) => {
+export const MenuButton = ({ promotion }: Props) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const { duplicatePromotion, deletePromotion, editPromotion } =
     useContext(PromotionsContext);
   const open = Boolean(anchorEl);
@@ -29,7 +32,7 @@ export const MenuButton = ({ promotionId }: Props) => {
 
   const onDeleteClicked = async () => {
     try {
-      await deletePromotion(promotionId);
+      await deletePromotion(promotion._id!);
       Swal.fire("Promotion deleted successfuly", undefined, "success");
     } catch (error) {
       console.error(error);
@@ -41,7 +44,7 @@ export const MenuButton = ({ promotionId }: Props) => {
 
   const onDuplicateClicked = async () => {
     try {
-      await duplicatePromotion(promotionId);
+      await duplicatePromotion(promotion._id!);
       Swal.fire("Promotion duplicated successfuly", undefined, "success");
     } catch (error) {
       console.error(error);
@@ -51,11 +54,11 @@ export const MenuButton = ({ promotionId }: Props) => {
     }
   };
 
-  const onEditClicked = async () => {
+  const onEditClicked = async () => setIsOpen(true);
+
+  const onEditConfirmed = async (promotion: Promotion) => {
     try {
-      // @ts-ignore ADD EDIT
-      await editPromotion(promotionId, {
-      });
+      await editPromotion(promotion._id!, promotion);
       Swal.fire("Promotion edited successfuly", undefined, "success");
     } catch (error) {
       console.error(error);
@@ -103,6 +106,12 @@ export const MenuButton = ({ promotionId }: Props) => {
           Delete
         </MenuItem>
       </StyledMenu>
+      <PromotionEditModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        promotion={promotion}
+        onConfirm={onEditConfirmed}
+      />
     </div>
   );
 };

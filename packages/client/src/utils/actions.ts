@@ -11,10 +11,7 @@ export const adjustPromotions = (
     : newPromotions.concat(oldPromotions.slice(-BULK_SIZE));
 
 export const calculateTotalOffset = (offset: number, isNext: boolean) => {
-  const tempOffset = BULK_SIZE * (offset - 1);
+  let tempOffset = isNext ? BULK_SIZE * (offset - 1) + FIRST_BULK_SIZE : offset * BULK_SIZE;
 
-  return isNext ? tempOffset + FIRST_BULK_SIZE : tempOffset - BULK_SIZE;
+  return tempOffset <= 0 ? 1 : tempOffset;
 };
-
-
-

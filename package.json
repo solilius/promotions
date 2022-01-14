@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "start": "lerna run start",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "bootstrap": "lerna bootstrap"
   },
 
   "devDependencies": {

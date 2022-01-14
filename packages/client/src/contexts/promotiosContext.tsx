@@ -17,8 +17,8 @@ interface ContextData {
   deletePromotion: (promotionId: string) => Promise<void>;
   duplicatePromotion: (promotionId: string) => Promise<void>;
   editPromotion: (promotionId: string, Promotion: Promotion) => Promise<void>;
-  setIsLast: (flag: boolean) => void,
-  setIsFirst: (flag: boolean) => void,
+  setIsLast: (flag: boolean) => void;
+  setIsFirst: (flag: boolean) => void;
 }
 
 export const PromotionsContext = React.createContext<ContextData>(
@@ -51,17 +51,11 @@ export const PromotionsContextProvider = ({
   };
 
   const editPromotion = async (id: string, promotion: Promotion) => {
-    await axios.put<undefined, ServerResponse>(`${BASE_URL}/${id}`, {
-      body: { promotion },
-    });
-    const updatedPromotion = {
-      ...promotions.find((p) => p._id === id),
-      ...promotion,
-    };
-    setPromotions((prev) => [
-      ...prev.filter((p) => p._id !== id),
-      updatedPromotion,
-    ]);
+    await axios.put<undefined, ServerResponse>(`${BASE_URL}/${id}`, promotion);
+    const tempPromotions = [...promotions];
+    const index = tempPromotions.findIndex(promotion => promotion._id === id);
+    tempPromotions[index] = promotion;
+    setPromotions(tempPromotions);
   };
 
   const reqestPromotions = async () => {
@@ -81,7 +75,7 @@ export const PromotionsContextProvider = ({
       if (!data) {
         new Error("No data");
       }
-      if(data.length < BULK_SIZE) {
+      if (data.length < BULK_SIZE) {
         isNext ? setIsLast(true) : setIsFirst(true);
       }
       setPromotions((prev) => adjustPromotions(prev, data, isNext));

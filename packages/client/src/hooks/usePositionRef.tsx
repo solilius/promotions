@@ -35,7 +35,6 @@ export const useRefCallback = ({observer, isNext, isLoading, offset, setOffset}:
       }
 
         setOffset( newOffset < 0 ? 0 : newOffset );
-        console.log(isNext);
       }
     });
     if (node) {

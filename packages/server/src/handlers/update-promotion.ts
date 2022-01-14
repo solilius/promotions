@@ -7,7 +7,7 @@ export const updatePromotion = async (req: Request, res: Response) => {
   try {
     await Promotion.updateOne(
       { _id: req.params.id },
-      { $set: req.body.promotion }
+      { $set: req.body }
     );
 
     res.json({ status: " success" });

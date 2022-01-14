@@ -24,7 +24,7 @@ export const PromotionCell = ({
       <Cell>{moment(promotion.endDate).format(DATE_FORMAT)}</Cell>
       <Cell>{promotion.userGroup}</Cell>
       <Cell>
-        <MenuButton promotionId={promotion._id!} />
+        <MenuButton promotion={promotion!} />
       </Cell>
     </Row>
   );

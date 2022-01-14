@@ -9,7 +9,6 @@ import {
   Row,
   ScrollableBody,
   HeaderCell,
-  Cell,
 } from "./styles/Styled";
 import { PromotionsContext } from "../contexts/promotiosContext";
 
