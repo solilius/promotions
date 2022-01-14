@@ -1,5 +1,5 @@
 # Promotions
-Scroll to the infinity and manage your tottaly real promotions.
+Scroll to the infinity and manage your totally real promotions.
 
 #### Table of Contents
 
