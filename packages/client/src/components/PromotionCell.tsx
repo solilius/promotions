@@ -17,7 +17,7 @@ export const PromotionCell = ({
   lastItemCallback,
 }: Props) => {
   return (
-    <Row ref={firstItemCallback || lastItemCallback} id={promotion._id}>
+    <Row ref={firstItemCallback || lastItemCallback}>
       <Cell>{promotion.name}</Cell>
       <Cell>{promotion.type}</Cell>
       <Cell>{moment(promotion.startDate).format(DATE_FORMAT)}</Cell>

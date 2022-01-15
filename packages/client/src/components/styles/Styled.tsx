@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Table, TableCell, TableRow, TableBody } from "@mui/material";
+import { Table, TableCell, TableRow } from "@mui/material";
 
 export const TableContainer = styled.div`
   border: 2px solid #008385;
@@ -17,7 +17,6 @@ export const Row = styled(TableRow)`
 `;
 
 export const HeaderCell = styled(TableCell)`
-  
   color: white !important;
   font-size: 22px !important;
   background: #325a82 !important;
@@ -30,12 +29,6 @@ export const Cell = styled(TableCell)`
   background: #386491 !important;
 `;
 
-export const LoaderRow = styled(TableRow)`
-  background: #386491 !important;
-  display: flex;
-  justify-content: center;
-  padding: 30px;
-`;
 
 export const LoaderContainer = styled(TableCell)`
   background: #386491 !important;

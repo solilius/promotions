@@ -53,7 +53,7 @@ export const PromotionsContextProvider = ({
   const editPromotion = async (id: string, promotion: Promotion) => {
     await axios.put<undefined, ServerResponse>(`${BASE_URL}/${id}`, promotion);
     const tempPromotions = [...promotions];
-    const index = tempPromotions.findIndex(promotion => promotion._id === id);
+    const index = tempPromotions.findIndex((promotion) => promotion._id === id);
     tempPromotions[index] = promotion;
     setPromotions(tempPromotions);
   };
@@ -68,7 +68,7 @@ export const PromotionsContextProvider = ({
       const { data } = await axios.get(BASE_URL, {
         params: {
           offset:
-            promotions.length === 0 ? 1 : calculateTotalOffset(offset, isNext),
+            promotions.length === 0 ? 0 : calculateTotalOffset(offset, isNext),
           bulkSize: promotions.length === 0 ? FIRST_BULK_SIZE : BULK_SIZE,
         },
       });

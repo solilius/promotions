@@ -147,6 +147,7 @@ export const PromotionEditModal = ({
               <Select defaultValue={type} label="Type" onChange={onTypeChanged}>
                 {Object.keys(PromotionTypes).map((key) => (
                   <MenuItem
+                    key={key}
                     value={PromotionTypes[key as keyof typeof PromotionTypes]}
                   >
                     {key}
@@ -162,7 +163,10 @@ export const PromotionEditModal = ({
                 onChange={onUserGroupChanged}
               >
                 {Object.keys(UserGroups).map((key) => (
-                  <MenuItem value={UserGroups[key as keyof typeof UserGroups]}>
+                  <MenuItem
+                    key={key}
+                    value={UserGroups[key as keyof typeof UserGroups]}
+                  >
                     {key}
                   </MenuItem>
                 ))}

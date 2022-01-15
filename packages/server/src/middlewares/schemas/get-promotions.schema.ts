@@ -5,7 +5,7 @@ export const schema = Joi.object({
     .min(1)
     .required(),
   offset: Joi.number()
-    .min(1)
+    .min(0)
     .required(),
  
 });

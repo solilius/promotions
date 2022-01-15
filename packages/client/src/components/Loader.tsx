@@ -1,5 +1,5 @@
 import { CircularProgress } from "@mui/material";
-import { LoaderContainer } from "./styles/Styled";
+import { LoaderContainer, Row } from "./styles/Styled";
 
 interface Props {
   isLoading: boolean;
@@ -7,11 +7,13 @@ interface Props {
 
 export const Loader = ({ isLoading }: Props) => {
   return (
-    <LoaderContainer colSpan={6} align="center">
-      <CircularProgress
-        color="inherit"
-        variant={isLoading ? "indeterminate" : "determinate"}
-      />
-    </LoaderContainer>
+    <Row>
+      <LoaderContainer colSpan={6} align="center" key={Date.now().toString()} >
+        <CircularProgress
+          color="inherit"
+          variant={isLoading ? "indeterminate" : "determinate"}
+        />
+      </LoaderContainer>
+    </Row>
   );
 };

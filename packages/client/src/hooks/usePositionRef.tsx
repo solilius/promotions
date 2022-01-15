@@ -4,14 +4,11 @@ import { PromotionsContext } from "../contexts/promotiosContext";
 interface Optios {
   observer: React.MutableRefObject<any>,
   isNext: boolean,
-  isLoading: boolean,
-  offset: number,
-  setOffset: (offset: number) => void,
 }
 
-export const useRefCallback = ({observer, isNext, isLoading, offset, setOffset}: Optios ) => {
+export const useRefCallback = ({observer, isNext}: Optios ) => {
 
-  const { isFirst, isLast, setIsFirst, setIsLast } = useContext(PromotionsContext);
+  const { isFirst, isLast, setIsFirst, setIsLast, isLoading, offset, setOffset } = useContext(PromotionsContext);
   const observerCallback = useCallback((node) => {
     if (isLoading) {
       // we dont want to trigger it while we are loading

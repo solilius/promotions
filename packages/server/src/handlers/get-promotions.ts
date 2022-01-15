@@ -13,7 +13,7 @@ export const getPromotions = async (
     const promotions = await Promotion
       .find()
       .sort({ startDate: "asc" })
-      .skip(offset)
+      .skip(offset === 0 ? undefined : offset)
       .limit(bulkSize);
 
     res.json(promotions);

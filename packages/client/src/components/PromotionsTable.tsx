@@ -8,8 +8,7 @@ import { PromotionsContext } from "../contexts/promotiosContext";
 import { Loader } from "./Loader";
 
 export const PromotionsTable = () => {
-  const { isLoading, promotions, offset, setOffset } =
-    useContext(PromotionsContext);
+  const { isLoading, promotions } = useContext(PromotionsContext);
 
   const observerFirst = useRef();
   const observerLast = useRef();
@@ -17,16 +16,10 @@ export const PromotionsTable = () => {
   const { observerCallback: firstPromotion } = useRefCallback({
     observer: observerFirst,
     isNext: false,
-    isLoading,
-    offset,
-    setOffset,
   });
   const { observerCallback: lastPromotion } = useRefCallback({
     observer: observerLast,
     isNext: true,
-    isLoading,
-    offset,
-    setOffset,
   });
 
   const isFirst = (index: number): boolean => index === 0;
@@ -42,19 +35,22 @@ export const PromotionsTable = () => {
             <HeaderCell>Start Date</HeaderCell>
             <HeaderCell>End Date</HeaderCell>
             <HeaderCell>User Group</HeaderCell>
-            <HeaderCell></HeaderCell>
+            <HeaderCell align="center">&bull;</HeaderCell>
           </Row>
         </TableHead>
         <TableBody>
           {isLoading && <Loader isLoading={isLoading} />}
           {promotions.map((promotion, index) => (
             <PromotionCell
+              key={promotion._id}
               promotion={promotion}
               firstItemCallback={isFirst(index) ? firstPromotion : undefined}
               lastItemCallback={isLast(index) ? lastPromotion : undefined}
             />
           ))}
-          {isLoading && <Loader isLoading={isLoading} />}
+          {isLoading && promotions.length > 0 && (
+            <Loader isLoading={isLoading} />
+          )}
         </TableBody>
       </StyledTable>
     </TableContainer>
