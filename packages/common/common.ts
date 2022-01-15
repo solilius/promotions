@@ -17,6 +17,7 @@ export enum UserGroups {
 
 export interface Promotion {
   _id?: string;
+  _doc?: any,
   name: string;
   type: PromotionTypes;
   startDate: Date;

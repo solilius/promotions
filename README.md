@@ -24,14 +24,19 @@ Scroll to the infinity and manage your totally real promotions.
 
 ## Installation
 * Clone the repository
-* Navigate to folder and Install lerna   ``` $ yarn add lerna```
+* Navigate to folder and Install lerna   ``` $ yarn add lerna -W```
 * Run the command: ``` $ yarn bootstrap``` to install all the dependencies.
-* in the root repository create **.env** file. in fill it out like this:
+* Go to `/packages/server` and create **.env** file. in fill it out like this:
 
 ```
 PORT=3000
-MONGO_URI= ask me personally for that
-ALLOWED_DOMAINS = ["http://localhost:4200"] (I think im not using it)
+MONGO_URI= {ask me personally for that}
+```
+
+* Then go to `/packages/client` and create **.env** file. in fill it out like this:
+
+```
+PORT=4200
 ```
 
 <br/>

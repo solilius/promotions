@@ -7,10 +7,10 @@ import { StatusCodes } from "../utils/types";
 export const duplicatePromotion = async (req: Request, res: Response) => {
   try {
     const [promotion] = await Promotion.find({ _id: req.params.id })
-    const { name, type, startDate, endDate, userGroup } = promotion;
-    const {_id} = await Promotion.create({ name, type, startDate, endDate, userGroup });
+    const { _id: oldId, ...duplicate } = promotion._doc;
+    const { _id: newId } = await Promotion.create(duplicate);
 
-    res.send({...promotion, _id});
+    res.send({ ...duplicate, _id: newId });
   } catch (error) {
     console.error(error);
 

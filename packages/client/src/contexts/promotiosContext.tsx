@@ -4,10 +4,10 @@ import moment from "moment";
 import { Promotion } from "@promotions/common";
 
 import { adjustPromotions, calculateTotalOffset } from "../utils/actions";
-import { BASE_URL, BULK_SIZE, FIRST_BULK_SIZE } from "../utils/consts";
+import { BASE_URL, BULK_SIZE, FULL_BULK_SIZE } from "../utils/consts";
 
 type ServerResponse = { data: { status: string } };
-type ServerResponseWithPromotion = { data: { _doc: Promotion } };
+type ServerResponseWithPromotion = { data:  Promotion };
 
 interface ContextData {
   isLoading: boolean;
@@ -48,9 +48,11 @@ export const PromotionsContextProvider = ({
     const { data } = await axios.post<undefined, ServerResponseWithPromotion>(
       `${BASE_URL}/duplicate/${id}`
     );
-    const [first, ...rest] = promotions; // we can only have 80 displayed
+
+    promotions.pop(); // to keep FULL_BULK_SIZE
+
     setPromotions(
-      [...rest, data._doc].sort(
+      [...promotions, data].sort(
         (a, b) =>
           Number(moment(a.startDate).unix()) -
           Number(moment(b.startDate).unix())
@@ -77,7 +79,7 @@ export const PromotionsContextProvider = ({
         params: {
           offset:
             promotions.length === 0 ? 0 : calculateTotalOffset(offset, isNext),
-          bulkSize: promotions.length === 0 ? FIRST_BULK_SIZE : BULK_SIZE,
+          bulkSize: promotions.length === 0 ? FULL_BULK_SIZE : BULK_SIZE,
         },
       });
       if (!data) {
