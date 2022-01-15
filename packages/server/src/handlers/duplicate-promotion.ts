@@ -1,5 +1,4 @@
 import { Request, Response } from "express"
-import { Types } from 'mongoose';
 
 import { Promotion } from "../db/models/promotion";
 import { StatusCodes } from "../utils/types";

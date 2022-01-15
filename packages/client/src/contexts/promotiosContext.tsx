@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import moment from "moment";
 import { Promotion } from "@promotions/common";
 
-import { adjustPromotions, calculateTotalOffset } from "../utils/actions";
+import {
+  adjustPromotions,
+  calculateTotalOffset,
+  getPremissionsAfterEdit,
+  getPromotionsAfterDuplicate,
+} from "../utils/actions";
 import { BASE_URL, BULK_SIZE, FULL_BULK_SIZE } from "../utils/consts";
 
 type ServerResponse = { data: { status: string } };
-type ServerResponseWithPromotion = { data:  Promotion };
+type ServerResponseWithPromotion = { data: Promotion };
 
 interface ContextData {
   isLoading: boolean;
-  isFirst: boolean;
-  isLast: boolean;
+  isBeginning: boolean;
+  isEnd: boolean;
   promotions: Promotion[];
   offset: number;
   setOffset: (offset: number) => void;
   deletePromotion: (promotionId: string) => Promise<void>;
   duplicatePromotion: (promotionId: string) => Promise<void>;
   editPromotion: (promotionId: string, Promotion: Promotion) => Promise<void>;
-  setIsLast: (flag: boolean) => void;
-  setIsFirst: (flag: boolean) => void;
+  setIsEnd: (flag: boolean) => void;
+  setIsBeginning: (flag: boolean) => void;
 }
 
 export const PromotionsContext = React.createContext<ContextData>(
@@ -32,12 +36,12 @@ export const PromotionsContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [promotions, setPromotions] = useState<Promotion[]>([]);
-  const [offset, setOffset] = useState(0);
-  const [tempOffset, setTempOffset] = useState(offset - 1);
-  const [isFirst, setIsFirst] = useState(false);
-  const [isLast, setIsLast] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // there is a pending request
+  const [promotions, setPromotions] = useState<Promotion[]>([]); // all the promotions
+  const [offset, setOffset] = useState(0); // the offest in the db
+  const [tempOffset, setTempOffset] = useState(offset - 1); // deduct if we are loading next or back
+  const [isBeginning, setIsBeginning] = useState(false); // are we at the beginning of the list on the db
+  const [isEnd, setIsEnd] = useState(false); // are we at the end of the list on the db
 
   const deletePromotion = async (id: string) => {
     await axios.delete<undefined, ServerResponse>(`${BASE_URL}/${id}`);
@@ -49,27 +53,19 @@ export const PromotionsContextProvider = ({
       `${BASE_URL}/duplicate/${id}`
     );
 
-    promotions.pop(); // to keep FULL_BULK_SIZE
-
-    setPromotions(
-      [...promotions, data].sort(
-        (a, b) =>
-          Number(moment(a.startDate).unix()) -
-          Number(moment(b.startDate).unix())
-      )
-    );
+    const newPromotions = getPromotionsAfterDuplicate(promotions, data);
+    setPromotions(newPromotions);
   };
 
   const editPromotion = async (id: string, promotion: Promotion) => {
     await axios.put<undefined, ServerResponse>(`${BASE_URL}/${id}`, promotion);
-    const tempPromotions = [...promotions];
-    const index = tempPromotions.findIndex((promotion) => promotion._id === id);
-    tempPromotions[index] = promotion;
-    setPromotions(tempPromotions);
+    const editedPromotions = getPremissionsAfterEdit(promotions, promotion, id);
+
+    setPromotions(editedPromotions);
   };
 
   const reqestPromotions = async () => {
-    if (tempOffset === offset || isFirst || isLast) {
+    if (tempOffset === offset || isBeginning || isEnd) {
       return;
     }
     try {
@@ -86,7 +82,7 @@ export const PromotionsContextProvider = ({
         new Error("No data");
       }
       if (data.length < BULK_SIZE) {
-        isNext ? setIsLast(true) : setIsFirst(true);
+        isNext ? setIsEnd(true) : setIsBeginning(true);
       }
       setPromotions((prev) => adjustPromotions(prev, data, isNext));
     } catch (error) {
@@ -103,16 +99,16 @@ export const PromotionsContextProvider = ({
 
   const value: ContextData = {
     isLoading,
-    isFirst,
-    isLast,
+    isBeginning,
+    isEnd,
     promotions,
     offset,
     setOffset,
     deletePromotion,
     duplicatePromotion,
     editPromotion,
-    setIsLast,
-    setIsFirst,
+    setIsEnd,
+    setIsBeginning,
   };
 
   return (
