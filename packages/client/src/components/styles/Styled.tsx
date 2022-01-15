@@ -28,8 +28,3 @@ export const Cell = styled(TableCell)`
   font-family: monospace !important;
   background: #386491 !important;
 `;
-
-
-export const LoaderContainer = styled(TableCell)`
-  background: #386491 !important;
-`;

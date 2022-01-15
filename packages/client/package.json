@@ -34,7 +34,7 @@
     "@types/styled-components": "^5.1.20"
   },
   "scripts": {
-    "start": "set PORT=4200 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

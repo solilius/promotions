@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import moment from "moment";
 import { Promotion } from "@promotions/common";
+
 import { adjustPromotions, calculateTotalOffset } from "../utils/actions";
 import { BASE_URL, BULK_SIZE, FIRST_BULK_SIZE } from "../utils/consts";
-import axios from "axios";
 
 type ServerResponse = { data: { status: string } };
-type ServerResponseWithPromotion = { data: { promotion: Promotion } };
+type ServerResponseWithPromotion = { data: { _doc: Promotion } };
 
 interface ContextData {
   isLoading: boolean;
@@ -46,8 +48,14 @@ export const PromotionsContextProvider = ({
     const { data } = await axios.post<undefined, ServerResponseWithPromotion>(
       `${BASE_URL}/duplicate/${id}`
     );
-    const [first, ...rest] = promotions;
-    setPromotions([...rest, data.promotion]);
+    const [first, ...rest] = promotions; // we can only have 80 displayed
+    setPromotions(
+      [...rest, data._doc].sort(
+        (a, b) =>
+          Number(moment(a.startDate).unix()) -
+          Number(moment(b.startDate).unix())
+      )
+    );
   };
 
   const editPromotion = async (id: string, promotion: Promotion) => {

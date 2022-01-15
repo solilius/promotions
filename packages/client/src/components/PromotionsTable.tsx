@@ -1,11 +1,10 @@
 import { useContext, useRef } from "react";
-import { TableHead, TableBody } from "@mui/material";
+import { TableHead, TableBody, CircularProgress } from "@mui/material";
 
 import { useRefCallback } from "../hooks/usePositionRef";
 import { PromotionCell } from "./PromotionCell";
 import { StyledTable, TableContainer, Row, HeaderCell } from "./styles/Styled";
 import { PromotionsContext } from "../contexts/promotiosContext";
-import { Loader } from "./Loader";
 
 export const PromotionsTable = () => {
   const { isLoading, promotions } = useContext(PromotionsContext);
@@ -35,11 +34,15 @@ export const PromotionsTable = () => {
             <HeaderCell>Start Date</HeaderCell>
             <HeaderCell>End Date</HeaderCell>
             <HeaderCell>User Group</HeaderCell>
-            <HeaderCell align="center">&bull;</HeaderCell>
+            <HeaderCell align="center">
+              <CircularProgress
+                color="inherit"
+                variant={isLoading ? "indeterminate" : "determinate"}
+              />
+            </HeaderCell>
           </Row>
         </TableHead>
         <TableBody>
-          {isLoading && <Loader isLoading={isLoading} />}
           {promotions.map((promotion, index) => (
             <PromotionCell
               key={promotion._id}
@@ -48,9 +51,6 @@ export const PromotionsTable = () => {
               lastItemCallback={isLast(index) ? lastPromotion : undefined}
             />
           ))}
-          {isLoading && promotions.length > 0 && (
-            <Loader isLoading={isLoading} />
-          )}
         </TableBody>
       </StyledTable>
     </TableContainer>

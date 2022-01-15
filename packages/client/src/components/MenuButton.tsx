@@ -32,25 +32,52 @@ export const MenuButton = ({ promotion }: Props) => {
 
   const onDeleteClicked = async () => {
     try {
+      handleClose();
+      const { isDenied } = await Swal.fire({
+        title: "Delete Promotion",
+        icon: "warning",
+        text: "Are you sure?",
+        showDenyButton: true,
+        showConfirmButton: false,
+        showCancelButton: true,
+        denyButtonText: `Delete`,
+      });
+
+      if (!isDenied) {
+        return;
+      }
+
       await deletePromotion(promotion._id!);
       Swal.fire("Promotion deleted successfuly", undefined, "success");
     } catch (error) {
       console.error(error);
       Swal.fire("Promotion deleted failed", undefined, "error");
-    } finally {
-      handleClose();
     }
   };
 
   const onDuplicateClicked = async () => {
     try {
+      handleClose();
+      const { isConfirmed } = await Swal.fire({
+        title: "Duplicate Promotion",
+        icon: "warning",
+        text: "Are you sure?",
+        confirmButtonColor: '#3085d6',
+        showConfirmButton: true,
+
+        showCancelButton: true,
+        confirmButtonText: `Duplicate`,
+      });
+
+      if (!isConfirmed) {
+        return;
+      }
+
       await duplicatePromotion(promotion._id!);
       Swal.fire("Promotion duplicated successfuly", undefined, "success");
     } catch (error) {
       console.error(error);
       Swal.fire("Promotion duplication failed", undefined, "error");
-    } finally {
-      handleClose();
     }
   };
 
@@ -58,13 +85,12 @@ export const MenuButton = ({ promotion }: Props) => {
 
   const onEditConfirmed = async (promotion: Promotion) => {
     try {
+      handleClose();
       await editPromotion(promotion._id!, promotion);
       Swal.fire("Promotion edited successfuly", undefined, "success");
     } catch (error) {
       console.error(error);
       Swal.fire("Promotion edit failed", undefined, "error");
-    } finally {
-      handleClose();
     }
   };
 
